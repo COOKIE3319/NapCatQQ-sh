@@ -132,9 +132,9 @@ napcat_msg_at() {
   printf '[{"type":"at","data":{"qq":"%s"}}]' "$1"
 }
 
-# ---- 暂存文件到 NapCat temp 目录 ----
+# ---- 将文件编码为 base64 URI ----
 
-# 将本地文件复制到 NapCat 临时目录，返回 file:// URI
+# 将本地文件编码为 base64:// URI，绕过 macOS QQ 沙箱限制
 # 用法: napcat_stage_file <source_path>
 napcat_stage_file() {
   _src="$1"
@@ -144,19 +144,6 @@ napcat_stage_file() {
     return 1
   fi
 
-  if [ ! -d "$napcat_temp_dir" ]; then
-    echo "Error: NapCat temp dir not found: $napcat_temp_dir" >&2
-    return 1
-  fi
-
-  _basename="$(basename "$_src")"
-  _ext="${_basename##*.}"
-
-  case "$_basename" in
-    *.*) _staged="$napcat_temp_dir/shnapcat_${$}_$(date +%s).$_ext" ;;
-    *)   _staged="$napcat_temp_dir/shnapcat_${$}_$(date +%s)" ;;
-  esac
-
-  cp "$_src" "$_staged"
-  printf 'file://%s' "$_staged"
+  _b64="$(base64 < "$_src" | tr -d '\n')"
+  printf 'base64://%s' "$_b64"
 }
