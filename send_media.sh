@@ -39,7 +39,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 media_path="$emoji_dir/$field3"
 
-# 将文件暂存到 NapCat temp 目录并获取 file:// URI
+# 将文件编码为 base64:// URI
 staged_uri="$(napcat_stage_file "$media_path")"
 
 # 根据媒体类型构造消息段

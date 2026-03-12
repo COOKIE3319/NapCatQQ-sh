@@ -20,9 +20,6 @@ napcat_access_token=""
 
 # 媒体文件存储目录
 emoji_dir="/path/to/your/emoji"
-
-# NapCat 临时文件目录（macOS QQ 沙箱路径）
-napcat_temp_dir="/path/to/QQ/NapCat/temp"
 ```
 
 ## 脚本说明
@@ -38,7 +35,7 @@ napcat_temp_dir="/path/to/QQ/NapCat/temp"
 - `napcat_msg_video <file_uri>` — 构造视频消息段
 - `napcat_msg_file <file_uri> [文件名]` — 构造文件消息段
 - `napcat_msg_at <QQ号|all>` — 构造 @消息段
-- `napcat_stage_file <本地路径>` — 将文件复制到 NapCat temp 目录，返回 `file://` URI
+- `napcat_stage_file <本地路径>` — 将文件编码为 `base64://` URI
 
 ### send_text.sh — 发送文本消息
 
